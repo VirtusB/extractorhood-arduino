@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timeouttime_18',['timeoutTime',['../_emhaette_8ino.html#a23b5e1c5976fc2f3ee7d89e9a1e08b4d',1,'Emhaette.ino']]]
+  ['server_18',['server',['../_emhaette_8ino.html#aa26bd0f0bdc5e4c3948e403b7ba4c084',1,'Emhaette.ino']]],
+  ['setup_19',['setup',['../_emhaette_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Emhaette.ino']]]
 ];

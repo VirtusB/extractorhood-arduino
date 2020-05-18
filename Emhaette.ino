@@ -329,89 +329,121 @@ void loop() {
                         client.println("<script>var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;");
                         client.println("var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;");
                         client.println("var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;");
+
                         client.println("var commands = ['turn on extractor hood', 'turn on light', 'exhaust speed slow', 'exhaust speed fast', 'turn off extractor hood', 'turn off light'];");
+
                         client.println("var grammar = '#JSGF V1.0; grammar extractorHoodCommands; public <command> = ' + commands.join(' | ') + ' ;';");
+
                         client.println("var recognition = new SpeechRecognition();");
                         client.println("var speechRecognitionList = new SpeechGrammarList();");
                         client.println("speechRecognitionList.addFromString(grammar, 1);");
+
                         client.println("recognition.grammars = speechRecognitionList;");
                         client.println("recognition.continuous = false;");
                         client.println("recognition.lang = 'en-US';");
                         client.println("recognition.interimResults = false;");
                         client.println("recognition.maxAlternatives = 1;");
+
                         client.println("var diagnostic = document.querySelector('.output');");
+
                         client.println("document.getElementById('voice-btn').addEventListener('click', function (event) {");
                         client.println("recognition.start();");
-                        client.println("console.log('Ready to receive a color command.');});");
+                        client.println("console.log('Ready to receive a color command.');");
+                        client.println("});");
+
                         client.println("recognition.onresult = function(event) {");
                         client.println("var command = event.results[0][0].transcript;");
                         client.println("console.log('Command: ' + command);");
                         client.println("diagnostic.textContent = 'Result received: ' + command + '.';");
                         client.println("console.log('Confidence: ' + event.results[0][0].confidence);");
+
                         client.println("command = command.toLowerCase();");
+
+                        client.println("handleSpeechCommand(command);");
+                        client.println("};");
+
+                        client.println("function handleSpeechCommand(command) {");
                         client.println("switch (command) {");
                         client.println("case 'turn on extractor hood':");
                         client.println("console.log('tænd for emhætten');");
                         client.println("if (confirm('Tænd for emhætten?')) {");
-                        client.println("location.pathname = '/5/on';}");
+                        client.println("location.pathname = '/5/on';");
+                        client.println("}");
                         client.println("break;");
                         client.println("case 'turn on light':");
                         client.println("console.log('tænd for lyset på emhætten');");
                         client.println("if (confirm('Tænd for lyset på emhætten?')) {");
-                        client.println("location.pathname = '/4/on';}");
+                        client.println("location.pathname = '/4/on';");
+                        client.println("}");
                         client.println("break;");
                         client.println("case 'exhaust speed slow':");
                         client.println("console.log('sæt blæser hastighed til langsom');");
                         client.println("if (confirm('Sæt blæser hastighed til langsom?')) {");
-                        client.println("location.pathname = '/6/slow';}");
+                        client.println("location.pathname = '/6/slow';");
+                        client.println("}");
                         client.println("break;");
                         client.println("case 'exhaust speed fast':");
                         client.println("console.log('sæt blæser hastighed til hurtig');");
                         client.println("if (confirm('Sæt blæser hastighed til hurtig?')) {");
-                        client.println("location.pathname = '/6/fast';}");
+                        client.println("location.pathname = '/6/fast';");
+                        client.println("}");
                         client.println("break;");
                         client.println("case 'turn off extractor hood':");
                         client.println("console.log('sluk for emhætten');");
                         client.println("if (confirm('Sluk for emhætten?')) {");
-                        client.println("location.pathname = '/5/off';}");
+                        client.println("location.pathname = '/5/off';");
+                        client.println("}");
                         client.println("break;");
                         client.println("case 'turn off light':");
                         client.println("console.log('sluk for lyset');");
                         client.println("if (confirm('Sluk for lyset?')) {");
-                        client.println("location.pathname = '/4/off';}");
+                        client.println("location.pathname = '/4/off';");
+                        client.println("}");
                         client.println("break;");
                         client.println("default:");
                         client.println("let found = tryToFindCommandBetter(command);");
+
                         client.println("if (found !== false) {");
                         client.println("console.log('Fandt kommando ved at søge commands igennem');");
                         client.println("console.log('Kommando fundet:' + found);");
+                        client.println("handleSpeechCommand(found);");
                         client.println("} else {");
                         client.println("console.log('Kunne ikke finde kommando')");
                         client.println("}");
                         client.println("break;");
                         client.println("}");
-                        client.println("};");
+                        client.println("}");
+
                         client.println("function tryToFindCommandBetter(speechCommand) {");
                         client.println("let found = false;");
+
                         client.println("commands.forEach(cmd => {");
                         client.println("let splitSpeechCommand = speechCommand.split(' ');");
                         client.println("let splitCommand = cmd.split(' ');");
-                        client.println("");
+
                         client.println("let containsEverySubString = splitCommand.every(val => {");
+                        client.println("console.log('val: ' + val);");
+                        client.println("console.log('indexOf: ' + splitCommand.indexOf(val));");
+                        client.println("console.log(splitCommand);");
                         client.println("return splitSpeechCommand.indexOf(val) >= 0;");
                         client.println("});");
+                        client.println("console.log(containsEverySubString);");
                         client.println("if (containsEverySubString) {");
                         client.println("found = cmd;");
                         client.println("}");
                         client.println("});");
+
                         client.println("return found;");
                         client.println("}");
+
                         client.println("recognition.onspeechend = function() {");
                         client.println("recognition.stop();");
                         client.println("};");
+
                         client.println("recognition.onnomatch = function(event) {");
                         client.println("diagnostic.textContent = 'Ingen kommando fundet, prøv igen';");
                         client.println("};");
+
                         client.println("recognition.onerror = function(event) {");
                         client.println("diagnostic.textContent = 'Fejl i stemmestyring: ' + event.error;");
                         client.println("};</script>");

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['server_16',['server',['../_emhaette_8ino.html#aa26bd0f0bdc5e4c3948e403b7ba4c084',1,'Emhaette.ino']]],
-  ['setup_17',['setup',['../_emhaette_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Emhaette.ino']]]
+  ['readme_2emd_17',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]]
 ];
